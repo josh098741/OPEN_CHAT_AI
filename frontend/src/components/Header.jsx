@@ -4,7 +4,9 @@
 function Header(){
 
     return(
-        <div>Header</div>
+        <div className="h-10 border-b w-auto bg-base-200">
+            <div></div>
+        </div>
     )
 }
 
