@@ -1,8 +1,12 @@
 import {assets} from '../assets/assets'
-import { Link } from 'react-router-dom'
-import { HomeIcon,BookAIcon, ImagesIcon, SearchIcon } from 'lucide-react'
+import { HomeIcon , ImagesIcon, SearchIcon, BotIcon, ArrowDownIcon } from 'lucide-react'
+import NavItem from './NavItem'
+import DropdownItem from './DropdownItem'
+import { useState } from 'react'
 
 function SideBar(){
+
+    const [isOpen, setIsOpen] = useState(false)
 
     return(
         <div className="flex flex-col p-1">
@@ -17,23 +21,32 @@ function SideBar(){
             </div>
             <div className="flex flex-col my-5">
                 <div className="w-full">
-                    <div className="flex my-2 items-center justify-center bg-base-300 rounded-lg p-2 hover:scale-105">
-                        <Link to="/" className="flex items-center gap-3 w-full">
-                            <HomeIcon className="size-5" />
-                            <span>Home</span>
-                        </Link>
-                    </div>
-                    <div className="flex my-2 items-center justify-center bg-base-300 rounded-lg p-2 hover:scale-105">
-                        <Link to="/" className="flex items-center gap-3 w-full">
-                            <SearchIcon className="size-5" />
-                            <span>Search</span>
-                        </Link>
-                    </div>
-                    <div className="flex my-2 items-center justify-center bg-base-300 rounded-lg p-2 hover:scale-105">
-                        <Link to="/" className="flex items-center gap-3 w-full">
-                            <ImagesIcon className="size-5" />
-                            <span>Library</span>
-                        </Link>
+                    {/*Navigation*/}
+                    <div className="flex flex-col my-5">
+                        <NavItem to="/" icon={<HomeIcon className="size-5" />} label="Home" />
+                        <NavItem to="/search" icon={<SearchIcon className="size-5" />} label="search" />
+                        <div>
+                            <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="flex items-center w-full bg-base-300 rounded-lg p-2 hover:scale-105 transition-all duration-300"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <BotIcon className="size-5" />
+                                    <span>Models</span>
+                                </div>
+                            </button>
+                            {
+                                isOpen && (
+                                    <div className="mt-2 flex flex-col gap-1">
+                                        <DropdownItem label="Gemini AI" to="/models/gemini" />
+                                        <DropdownItem label="GPT-4" to="/models/gpt4" />
+                                        <DropdownItem label="DeepSeek" to="/models/deepseek" />
+                                        <DropdownItem label="Claude" to="/models/claude" />
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <NavItem to="/" icon={<ImagesIcon className="size-5" />} label="Library" />
                     </div>
                 </div>
             </div>
